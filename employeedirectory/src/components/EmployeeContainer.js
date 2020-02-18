@@ -1,6 +1,6 @@
 import React from "react";
-// import Search from "./Search";
-import EmployeeList from "./EmployeeList"
+import EmployeeList from "./EmployeeList";
+import Header from './Header'
 import API from "../utils/API"
 
 class EmployeeContainer extends React.Component  {
@@ -20,11 +20,26 @@ class EmployeeContainer extends React.Component  {
   componentDidMount() {
       this.peopleGenerator();
   }
-  
 
+  handleInputChange = event => {
+      const value = event.target.value;
+      this.setState({searchPerson:value})
+  }
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    
+    console.log(this.state.searchPerson)
+  };
+  
   render() {
     return (
-      <EmployeeList results = {this.state.results} />
+  
+    <div>
+    <Header search={this.state.searchPerson} handleFormSubmit={this.handleFormSubmit} handleInputChange={this.handleInputChange}/>
+    
+    <EmployeeList results = {this.state.results} />
+    </div>
     );
   }
 }

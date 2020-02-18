@@ -9,11 +9,11 @@ const style = {
     }
 }
 
-const Header = () => {
+const Header = (props) => {
 return (
     <nav className="navbar navbar-light bg-dark">
       <a className="navbar-brand" href="/" style={style.head}>Employee Directory</a>
-      <Search />
+      <Search search={props.search} handleFormSubmit={props.handleFormSubmit} handleInputChange={props.handleInputChange}/>
     </nav>
     )
 }
