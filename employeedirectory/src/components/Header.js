@@ -1,4 +1,5 @@
 import React from "react";
+import Search from "./Search"
 
 const style = {
     head: {
@@ -12,10 +13,7 @@ const Header = () => {
 return (
     <nav className="navbar navbar-light bg-dark">
       <a className="navbar-brand" href="/" style={style.head}>Employee Directory</a>
-      <form className="form-inline"> 
-      <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      <Search />
     </nav>
     )
 }
