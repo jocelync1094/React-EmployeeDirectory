@@ -6,14 +6,15 @@ import API from "../utils/API"
 class EmployeeContainer extends React.Component  {
   state= {
     searchPerson: "",
-    results: []
+    allResults: [],
+    searchedResults: []
   }
 
   peopleGenerator = () => {
       API.search(20)
         .then(res => {
-            this.setState({results: res.data.results});
-            console.log(this.state.results)
+            this.setState({allResults: res.data.results});
+            console.log(this.state.allResults)
         }).catch(err => console.log(err))
   }
 
@@ -28,7 +29,10 @@ class EmployeeContainer extends React.Component  {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    
+    let peopleMatched=this.state.allResults
+    peopleMatched = peopleMatched.filter(result => (result.name.first.toLowerCase()===this.state.searchPerson.toLowerCase() || result.name.last.toLowerCase()===this.state.searchPerson.toLowerCase()))
+    this.setState({searchedResults: peopleMatched})
+    console.log(peopleMatched)
     console.log(this.state.searchPerson)
   };
   
@@ -37,8 +41,11 @@ class EmployeeContainer extends React.Component  {
   
     <div>
     <Header search={this.state.searchPerson} handleFormSubmit={this.handleFormSubmit} handleInputChange={this.handleInputChange}/>
-    
-    <EmployeeList results = {this.state.results} />
+    {
+      this.state.searchPerson.length
+      ? <EmployeeList results={this.state.searchedResults} />
+      : <EmployeeList results={this.state.allResults} />
+    }
     </div>
     );
   }
